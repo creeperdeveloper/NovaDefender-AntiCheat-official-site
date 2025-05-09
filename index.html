@@ -15,6 +15,7 @@
       --accent: #ff6584;
       --success: #28a745;
       --warning: #ffc107;
+      --info: #17a2b8;
     }
 
     * {
@@ -117,6 +118,33 @@
       cursor: pointer;
     }
 
+    /* Language Switcher */
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+    }
+
+    .language-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .language-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-btn.active {
+      background-color: var(--primary);
+      font-weight: bold;
+    }
+
     /* Hero Section */
     .hero {
       height: 100vh;
@@ -197,6 +225,14 @@
       background-color: #e0a800;
     }
 
+    .btn-info {
+      background-color: var(--info);
+    }
+
+    .btn-info:hover {
+      background-color: #138496;
+    }
+
     .hero-image {
       position: absolute;
       right: -100px;
@@ -271,9 +307,10 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       width: 100%;
-      max-width: 500px;
+      max-width: 350px;
       transition: all 0.3s ease;
       position: relative;
+      margin-bottom: 40px;
     }
 
     .product-card:hover {
@@ -294,6 +331,10 @@
 
     .product-header.premium {
       background: linear-gradient(135deg, #f5a623 0%, #f27121 100%);
+    }
+
+    .product-header.web {
+      background: linear-gradient(135deg, var(--info) 0%, #0056b3 100%);
     }
 
     .product-badge {
@@ -879,6 +920,10 @@
       .antimalware-content {
         flex-direction: column-reverse;
       }
+      
+      .language-switcher {
+        margin: 20px 0;
+      }
     }
 
     @media (max-width: 576px) {
@@ -913,12 +958,17 @@
           Nova<span>Defender</span>
         </div>
         <ul class="nav-links" id="navLinks">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#products">Products</a></li>
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#products" data-i18n="nav.products">Products</a></li>
           <li><a href="#antimalware">Anti-malware</a></li>
           <li><a href="#anticheat">AntiCheat</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#donate">Donate</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#donate" data-i18n="nav.donate">Donate</a></li>
+          <li class="language-switcher">
+            <button id="en-btn" class="language-btn active">EN</button>
+            <span style="color: white; margin: 0 5px;">|</span>
+            <button id="ja-btn" class="language-btn">JP</button>
+          </li>
         </ul>
         <div class="mobile-menu" id="mobileMenu">
           <i class="fas fa-bars"></i>
@@ -932,12 +982,12 @@
     <div class="particles" id="particles"></div>
     <div class="container">
       <div class="hero-content">
-        <h1>Advanced Security Solutions by <span style="color: var(--primary);">NovaDefender</span></h1>
-        <p>Protecting your digital world with cutting-edge security software. From our free Minecraft Bedrock AntiCheat
+        <h1 data-i18n="hero.title">Advanced Security Solutions by <span style="color: var(--primary);">NovaDefender</span></h1>
+        <p data-i18n="hero.description">Protecting your digital world with cutting-edge security software. From our free Minecraft Bedrock AntiCheat
           to our premium Anti-malware solution, NovaDefender is committed to keeping you safe online.</p>
         <div>
-          <a href="#products" class="btn">Explore Our Products</a>
-          <a href="#about" class="btn btn-outline">Learn More</a>
+          <a href="#products" class="btn" data-i18n="hero.explore">Explore Our Products</a>
+          <a href="#about" class="btn btn-outline" data-i18n="hero.learn">Learn More</a>
         </div>
       </div>
     </div>
@@ -948,45 +998,63 @@
   <section class="products" id="products">
     <div class="container">
       <div class="section-title">
-        <h2>Our Products</h2>
-        <p>NovaDefender offers powerful security solutions for different needs. Choose the product that's right for you.
+        <h2 data-i18n="products.title">Our Products</h2>
+        <p data-i18n="products.description">NovaDefender offers powerful security solutions for different needs. Choose the product that's right for you.
         </p>
       </div>
       <div class="products-container">
         <div class="product-card">
           <div class="product-header free">
-            <div class="product-badge">FREE</div>
+            <div class="product-badge" data-i18n="products.free">FREE</div>
             <h3>NovaDefender AntiCheat</h3>
-            <p>For Minecraft Bedrock Edition</p>
-            <div class="product-price">¥0 <span>/ forever</span></div>
+            <p data-i18n="products.minecraft">For Minecraft Bedrock Edition</p>
+            <div class="product-price">¥0 <span data-i18n="products.forever">/ forever</span></div>
           </div>
           <div class="product-content">
             <ul class="product-features">
-              <li><i class="fas fa-check-circle"></i> Advanced cheat detection</li>
-              <li><i class="fas fa-check-circle"></i> Real-time monitoring</li>
-              <li><i class="fas fa-check-circle"></i> Customizable settings</li>
-              <li><i class="fas fa-check-circle"></i> Community support</li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature1">Advanced cheat detection</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature2">Real-time monitoring</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature3">Customizable settings</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature4">Community support</span></li>
             </ul>
-            <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" class="btn">Free Download Now</a>
+            <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" class="btn" data-i18n="products.download">Free Download Now</a>
           </div>
         </div>
         <div class="product-card">
           <div class="product-header premium">
-            <div class="product-badge">PREMIUM</div>
+            <div class="product-badge" data-i18n="products.premium">PREMIUM</div>
             <h3>NovaDefender Anti-malware</h3>
-            <p>Complete protection for your devices</p>
-            <div class="product-price">¥1000+ <span>/ one time payment</span></div>
+            <p data-i18n="products.protection">Complete protection for your devices</p>
+            <div class="product-price">¥1000+ <span data-i18n="products.onetime">/ one time payment</span></div>
           </div>
           <div class="product-content">
             <ul class="product-features">
-              <li><i class="fas fa-check-circle"></i> Real-time threat detection</li>
-              <li><i class="fas fa-check-circle"></i> Ransomware protection</li>
-              <li><i class="fas fa-check-circle"></i> Web protection</li>
-              <li><i class="fas fa-check-circle"></i> Email security</li>
-              <li><i class="fas fa-check-circle"></i> Automatic updates</li>
-              <li><i class="fas fa-check-circle"></i> Premium support</li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature5">Real-time threat detection</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature6">Ransomware protection</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature7">Web protection</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature8">Email security</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature9">Automatic updates</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature10">Premium support</span></li>
             </ul>
-            <a href="#antimalware" class="btn btn-warning">We are currently considering development!</a>
+            <a href="#antimalware" class="btn btn-warning" data-i18n="products.considering">We are currently considering development!</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-header web">
+            <div class="product-badge" data-i18n="products.premium">PREMIUM</div>
+            <h3>NovaDefender WebProtector</h3>
+            <p data-i18n="products.webprotection">Safe browsing for everyone</p>
+            <div class="product-price">¥500+ <span data-i18n="products.onetime">/ one time payment</span></div>
+          </div>
+          <div class="product-content">
+            <ul class="product-features">
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.webfeature1">NSFW site blocking</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.webfeature2">Scam site protection</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.webfeature3">Dangerous site alerts</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.webfeature4">Customizable filters</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.webfeature5">Browser integration</span></li>
+            </ul>
+            <a href="#" class="btn btn-info" data-i18n="products.considering">We are currently considering development!</a>
           </div>
         </div>
       </div>
@@ -1001,18 +1069,18 @@
           <img src="https://i.imgur.com/nTZKG7j.png" alt="NovaDefender Anti-malware">
         </div> -->
         <div class="antimalware-text">
-          <h2>NovaDefender AntiMalware</h2>
-          <p>Introducing our premium Anti-malware solution designed to provide comprehensive protection against all
+          <h2>NovaDefender Anti-malware</h2>
+          <p data-i18n="antimalware.description">Introducing our premium Anti-malware solution designed to provide comprehensive protection against all
             types of digital threats. For just ¥1000+, get lifetime protection for your devices.</p>
-          <div class="price-tag">¥1000+ / one time payment</div>
+          <div class="price-tag" data-i18n="antimalware.price">¥1000+ / one time payment</div>
           <div class="antimalware-features">
             <div class="antimalware-feature">
               <div class="antimalware-feature-icon">
                 <i class="fas fa-virus-slash"></i>
               </div>
               <div class="antimalware-feature-text">
-                <h4>Advanced Threat Detection</h4>
-                <p>Our cutting-edge technology identifies and eliminates malware, ransomware, spyware, and other threats
+                <h4 data-i18n="antimalware.feature1.title">Advanced Threat Detection</h4>
+                <p data-i18n="antimalware.feature1.description">Our cutting-edge technology identifies and eliminates malware, ransomware, spyware, and other threats
                   before they can harm your system.</p>
               </div>
             </div>
@@ -1021,8 +1089,8 @@
                 <i class="fas fa-globe"></i>
               </div>
               <div class="antimalware-feature-text">
-                <h4>Web Protection</h4>
-                <p>Browse safely with real-time protection against malicious websites, phishing attempts, and dangerous
+                <h4 data-i18n="antimalware.feature2.title">Web Protection</h4>
+                <p data-i18n="antimalware.feature2.description">Browse safely with real-time protection against malicious websites, phishing attempts, and dangerous
                   downloads.</p>
               </div>
             </div>
@@ -1031,12 +1099,12 @@
                 <i class="fas fa-lock"></i>
               </div>
               <div class="antimalware-feature-text">
-                <h4>Privacy Shield</h4>
-                <p>Protect your personal information from keyloggers, identity thieves, and other privacy invaders.</p>
+                <h4 data-i18n="antimalware.feature3.title">Privacy Shield</h4>
+                <p data-i18n="antimalware.feature3.description">Protect your personal information from keyloggers, identity thieves, and other privacy invaders.</p>
               </div>
             </div>
           </div>
-          <a class="btn btn-warning">We are currently considering development!</a>
+          <a class="btn btn-warning" data-i18n="antimalware.considering">We are currently considering development!</a>
         </div>
       </div>
     </div>
@@ -1046,8 +1114,8 @@
   <section class="features" id="anticheat">
     <div class="container">
       <div class="section-title">
-        <h2>AntiCheat Features</h2>
-        <p>Our free Minecraft Bedrock AntiCheat comes packed with powerful features to protect your servers from
+        <h2 data-i18n="anticheat.title">AntiCheat Features</h2>
+        <p data-i18n="anticheat.description">Our free Minecraft Bedrock AntiCheat comes packed with powerful features to protect your servers from
           cheaters and hackers.</p>
       </div>
       <div class="features-grid">
@@ -1055,47 +1123,40 @@
           <div class="feature-icon">
             <i class="fas fa-eye-slash"></i>
           </div>
-          <h3>Cheat Detection</h3>
-          <p>Advanced algorithms to detect and prevent various cheats including speed hacks, fly hacks, and more.</p>
+          <h3 data-i18n="anticheat.feature1.title">Cheat Detection</h3>
+          <p data-i18n="anticheat.feature1.description">Advanced algorithms to detect and prevent various cheats including speed hacks, fly hacks, and more.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-bolt"></i>
           </div>
-          <h3>Lightweight</h3>
-          <p>Optimized code ensures minimal impact on server performance while maintaining maximum protection.</p>
+          <h3 data-i18n="anticheat.feature2.title">Lightweight</h3>
+          <p data-i18n="anticheat.feature2.description">Optimized code ensures minimal impact on server performance while maintaining maximum protection.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-cogs"></i>
           </div>
-          <h3>Customizable</h3>
-          <p>Easily configure detection thresholds and punishment actions to suit your server's specific needs.</p>
+          <h3 data-i18n="anticheat.feature3.title">Customizable</h3>
+          <p data-i18n="anticheat.feature3.description">Easily configure detection thresholds and punishment actions to suit your server's specific needs.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-chart-line"></i>
           </div>
-          <h3>Real-time Monitoring</h3>
-          <p>Monitor player activities in real-time and receive instant notifications of suspicious behavior.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-shield-alt"></i>
-          </div>
-          <h3>Auto-Updates</h3>
-          <p>Stay protected with automatic updates that counter the latest cheating methods and exploits.</p>
+          <h3 data-i18n="anticheat.feature4.title">Real-time Monitoring</h3>
+          <p data-i18n="anticheat.feature4.description">Monitor player activities in real-time and receive instant notifications of suspicious behavior.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-users"></i>
           </div>
-          <h3>Community Driven</h3>
-          <p>Developed with input from the Minecraft community to address real-world cheating issues.</p>
+          <h3 data-i18n="anticheat.feature6.title">Community Driven</h3>
+          <p data-i18n="anticheat.feature6.description">Developed with input from the Minecraft community to address real-world cheating issues.</p>
         </div>
       </div>
       <div style="text-align: center; margin-top: 40px;">
-        <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" class="btn btn-success">Download AntiCheat</a>
+        <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" class="btn btn-success" data-i18n="anticheat.download">Download AntiCheat</a>
       </div>
     </div>
   </section>
@@ -1105,16 +1166,16 @@
     <div class="container">
       <div class="about-content">
         <div class="about-text">
-          <h2>About NovaDefender</h2>
-          <p>NovaDefender is a passion project developed by a single developer who loves creating security solutions.
+          <h2 data-i18n="about.title">About NovaDefender</h2>
+          <p data-i18n="about.paragraph1">NovaDefender is a passion project developed by a single developer who loves creating security solutions.
             Our AntiCheat for Minecraft Bedrock is completely free and open to the community, while our premium
             Anti-malware solution helps fund continued development.</p>
-          <p>The project started when I noticed the increasing number of security threats online. I decided to use my
+          <p data-i18n="about.paragraph2">The project started when I noticed the increasing number of security threats online. I decided to use my
             programming skills to create solutions that would be accessible to everyone, with a free option for gamers
             and an affordable premium option for complete protection.</p>
-          <p>NovaDefender is constantly evolving, with regular updates to combat new threats. Your feedback, support,
+          <p data-i18n="about.paragraph3">NovaDefender is constantly evolving, with regular updates to combat new threats. Your feedback, support,
             and donations are what keep this project alive and improving!</p>
-          <a href="#donate" class="btn">Support the Project</a>
+          <a href="#donate" class="btn" data-i18n="about.support">Support the Project</a>
         </div>
         <!-- <div class="about-image">
           <img src="dounyuu.png" alt="NovaDefender Developer">
@@ -1127,11 +1188,11 @@
   <!-- Donation Section -->
   <section class="donation" id="donate">
     <div class="container">
-      <h2>Support NovaDefender</h2>
-      <p>While our AntiCheat is completely free and our Anti-malware is affordably priced, maintaining and improving the
+      <h2 data-i18n="donate.title">Support NovaDefender</h2>
+      <p data-i18n="donate.paragraph1">While our AntiCheat is completely free and our Anti-malware is affordably priced, maintaining and improving the
         software requires time and resources. Your donations help keep the project alive and allow for continuous
         improvements and updates.</p>
-      <p>By supporting NovaDefender, you're not just helping a single developer – you're contributing to a safer digital
+      <p data-i18n="donate.paragraph2">By supporting NovaDefender, you're not just helping a single developer – you're contributing to a safer digital
         world for everyone!</p>
       <div class="donation-options">
 <!--         <div class="donation-card">
@@ -1150,9 +1211,9 @@
           <a href="#" class="btn btn-white">Donate $30</a>
         </div> -->
         <div class="donation-card">
-          <div class="donation-amount">Custom</div>
-          <p>Choose your own amount to contribute to the project.</p>
-          <a href="#" class="btn btn-white">Custom Donation (under development)</a>
+          <div class="donation-amount" data-i18n="donate.custom">Custom</div>
+          <p data-i18n="donate.customDescription">Choose your own amount to contribute to the project.</p>
+          <a href="#" class="btn btn-white" data-i18n="donate.customButton">Custom Donation (under development)</a>
         </div>
       </div>
     </div>
@@ -1164,7 +1225,7 @@
       <div class="footer-content">
         <div class="footer-column">
           <h3>NovaDefender</h3>
-          <p>Advanced security solutions for everyone. Free AntiCheat for Minecraft and premium Anti-malware protection.
+          <p data-i18n="footer.description">Advanced security solutions for everyone. Free AntiCheat for Minecraft and premium Anti-malware protection.
           </p>
           <div class="social-links">
             <a href="#"><i class="fab fa-discord"></i></a>
@@ -1174,41 +1235,266 @@
           </div>
         </div>
         <div class="footer-column">
-          <h3>Products</h3>
+          <h3 data-i18n="footer.products">Products</h3>
           <ul>
             <li><a href="#anticheat">AntiCheat</a></li>
             <li><a href="#antimalware">Anti-malware</a></li>
-            <li><a href="https://novadefender.anticheat.f5.si">Download AntiCheat</a></li>
-            <li><a href="#">Purchase Anti-malware</a></li>
+            <li><a href="#products">WebProtector</a></li>
+            <li><a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" data-i18n="footer.downloadAntiCheat">Download AntiCheat</a></li>
+            <li><a href="#" data-i18n="footer.purchaseAntimalware">Purchase Anti-malware</a></li>
           </ul>
         </div>
         <div class="footer-column">
-          <h3>Resources</h3>
+          <h3 data-i18n="footer.resources">Resources</h3>
           <ul>
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">Installation Guide</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Troubleshooting</a></li>
-            <li><a href="#">Report Issues</a></li>
+            <li><a href="#" data-i18n="footer.documentation">Documentation</a></li>
+            <li><a href="#" data-i18n="footer.installation">Installation Guide</a></li>
+            <li><a href="#" data-i18n="footer.faq">FAQ</a></li>
+            <li><a href="#" data-i18n="footer.troubleshooting">Troubleshooting</a></li>
+            <li><a href="#" data-i18n="footer.reportIssues">Report Issues</a></li>
           </ul>
         </div>
         <div class="footer-column">
-          <h3>Contact</h3>
+          <h3 data-i18n="footer.contact">Contact</h3>
           <ul>
             <li><a href="mailto:support@novadefender.com">support@novadefender.com</a></li>
-            <li><a href="#">Join our Discord</a></li>
-            <li><a href="#">GitHub Repository</a></li>
+            <li><a href="#" data-i18n="footer.discord">Join our Discord</a></li>
+            <li><a href="#" data-i18n="footer.github">GitHub Repository</a></li>
           </ul>
         </div>
       </div>
       <div class="copyright">
-        <p>&copy; 2023 NovaDefender. All rights reserved. NovaDefender is not affiliated with Mojang or Microsoft.</p>
+        <p data-i18n="footer.copyright">&copy; 2025 NovaSecurity. All rights reserved. NovaSecurity is not affiliated with Mojang or Microsoft.</p>
       </div>
     </div>
   </footer>
 
   <!-- JavaScript -->
   <script>
+    // Language translations
+    const translations = {
+      en: {
+        "nav.home": "Home",
+        "nav.products": "Products",
+        "nav.about": "About",
+        "nav.donate": "Donate",
+        
+        "hero.title": "Advanced Security Solutions by <span style='color: var(--primary);'>NovaDefender</span>",
+        "hero.description": "Protecting your digital world with cutting-edge security software. From our free Minecraft Bedrock AntiCheat to our premium Anti-malware solution, NovaDefender is committed to keeping you safe online.",
+        "hero.explore": "Explore Our Products",
+        "hero.learn": "Learn More",
+        
+        "products.title": "Our Products",
+        "products.description": "NovaDefender offers powerful security solutions for different needs. Choose the product that's right for you.",
+        "products.free": "FREE",
+        "products.premium": "PREMIUM",
+        "products.minecraft": "For Minecraft Bedrock Edition",
+        "products.protection": "Complete protection for your devices",
+        "products.webprotection": "Safe browsing for everyone",
+        "products.forever": "/ forever",
+        "products.onetime": "/ one time payment",
+        "products.feature1": "Advanced cheat detection",
+        "products.feature2": "Real-time monitoring",
+        "products.feature3": "Customizable settings",
+        "products.feature4": "Community support",
+        "products.feature5": "Real-time threat detection",
+        "products.feature6": "Ransomware protection",
+        "products.feature7": "Web protection",
+        "products.feature8": "Email security",
+        "products.feature9": "Automatic updates",
+        "products.feature10": "Premium support",
+        "products.webfeature1": "NSFW site blocking",
+        "products.webfeature2": "Scam site protection",
+        "products.webfeature3": "Dangerous site alerts",
+        "products.webfeature4": "Customizable filters",
+        "products.webfeature5": "Browser integration",
+        "products.download": "Free Download Now",
+        "products.considering": "We are currently considering development!",
+        
+        "antimalware.description": "Introducing our premium Anti-malware solution designed to provide comprehensive protection against all types of digital threats. For just ¥1000+, get lifetime protection for your devices.",
+        "antimalware.price": "¥1000+ / one time payment",
+        "antimalware.feature1.title": "Advanced Threat Detection",
+        "antimalware.feature1.description": "Our cutting-edge technology identifies and eliminates malware, ransomware, spyware, and other threats before they can harm your system.",
+        "antimalware.feature2.title": "Web Protection",
+        "antimalware.feature2.description": "Browse safely with real-time protection against malicious websites, phishing attempts, and dangerous downloads.",
+        "antimalware.feature3.title": "Privacy Shield",
+        "antimalware.feature3.description": "Protect your personal information from keyloggers, identity thieves, and other privacy invaders.",
+        "antimalware.considering": "We are currently considering development!",
+        
+        "anticheat.title": "AntiCheat Features",
+        "anticheat.description": "Our free Minecraft Bedrock AntiCheat comes packed with powerful features to protect your servers from cheaters and hackers.",
+        "anticheat.feature1.title": "Cheat Detection",
+        "anticheat.feature1.description": "Advanced algorithms to detect and prevent various cheats including speed hacks, fly hacks, and more.",
+        "anticheat.feature2.title": "Lightweight",
+        "anticheat.feature2.description": "Optimized code ensures minimal impact on server performance while maintaining maximum protection.",
+        "anticheat.feature3.title": "Customizable",
+        "anticheat.feature3.description": "Easily configure detection thresholds and punishment actions to suit your server's specific needs.",
+        "anticheat.feature4.title": "Real-time Monitoring",
+        "anticheat.feature4.description": "Monitor player activities in real-time and receive instant notifications of suspicious behavior.",
+        "anticheat.feature6.title": "Community Driven",
+        "anticheat.feature6.description": "Developed with input from the Minecraft community to address real-world cheating issues.",
+        "anticheat.download": "Download AntiCheat",
+        
+        "about.title": "About NovaDefender",
+        "about.paragraph1": "NovaDefender is a passion project developed by a single developer who loves creating security solutions. Our AntiCheat for Minecraft Bedrock is completely free and open to the community, while our premium Anti-malware solution helps fund continued development.",
+        "about.paragraph2": "The project started when I noticed the increasing number of security threats online. I decided to use my programming skills to create solutions that would be accessible to everyone, with a free option for gamers and an affordable premium option for complete protection.",
+        "about.paragraph3": "NovaDefender is constantly evolving, with regular updates to combat new threats. Your feedback, support, and donations are what keep this project alive and improving!",
+        "about.support": "Support the Project",
+        
+        "donate.title": "Support NovaDefender",
+        "donate.paragraph1": "While our AntiCheat is completely free and our Anti-malware is affordably priced, maintaining and improving the software requires time and resources. Your donations help keep the project alive and allow for continuous improvements and updates.",
+        "donate.paragraph2": "By supporting NovaDefender, you're not just helping a single developer – you're contributing to a safer digital world for everyone!",
+        "donate.custom": "Custom",
+        "donate.customDescription": "Choose your own amount to contribute to the project.",
+        "donate.customButton": "Custom Donation (under development)",
+        
+        "footer.description": "Advanced security solutions for everyone. Free AntiCheat for Minecraft and premium Anti-malware protection.",
+        "footer.products": "Products",
+        "footer.downloadAntiCheat": "Download AntiCheat",
+        "footer.purchaseAntimalware": "Purchase Anti-malware",
+        "footer.resources": "Resources",
+        "footer.documentation": "Documentation",
+        "footer.installation": "Installation Guide",
+        "footer.faq": "FAQ",
+        "footer.troubleshooting": "Troubleshooting",
+        "footer.reportIssues": "Report Issues",
+        "footer.contact": "Contact",
+        "footer.discord": "Join our Discord",
+        "footer.github": "GitHub Repository",
+        "footer.copyright": "© 2025 NovaSecurity. All rights reserved. NovaSecurity is not affiliated with Mojang or Microsoft."
+      },
+      ja: {
+        "nav.home": "ホーム",
+        "nav.products": "ソフトウェア",
+        "nav.about": "概要",
+        "nav.donate": "寄付",
+        
+        "hero.title": "<span style='color: var(--primary);'>NovaDefender</span>による高度なセキュリティソリューション",
+        "hero.description": "最先端のセキュリティソフトウェアでデジタル世界を保護します。無料のMinecraft Bedrock用AntiCheatから、プレミアムのAnti-malwareソリューションまで、NovaDefenderはオンラインでの安全を確保することに取り組んでいます。",
+        "hero.explore": "ソフトウェア、プログラムを探索する",
+        "hero.learn": "詳細を見る",
+        
+        "products.title": "製品一覧",
+        "products.description": "NovaDefenderは様々なニーズに対応する強力なセキュリティソリューションを提供しています。あなたに最適なソフトウェアをお選びください。",
+        "products.free": "無料",
+        "products.premium": "プレミアム",
+        "products.minecraft": "Minecraft Bedrock Edition向け",
+        "products.protection": "デバイスの完全な保護",
+        "products.webprotection": "誰でも安全にブラウジング",
+        "products.forever": "/ 永久",
+        "products.onetime": "/ 一回払い",
+        "products.feature1": "高度なチート検出",
+        "products.feature2": "リアルタイム監視",
+        "products.feature3": "カスタマイズ可能な設定",
+        "products.feature4": "コミュニティサポート",
+        "products.feature5": "リアルタイム脅威検出",
+        "products.feature6": "ランサムウェア保護",
+        "products.feature7": "ウェブ保護",
+        "products.feature8": "メールセキュリティ",
+        "products.feature9": "自動アップデート",
+        "products.feature10": "プレミアムサポート",
+        "products.webfeature1": "NSFWサイトブロック",
+        "products.webfeature2": "詐欺サイト保護",
+        "products.webfeature3": "危険なサイトの警告",
+        "products.webfeature4": "カスタマイズ可能なフィルター",
+        "products.webfeature5": "ブラウザ統合",
+        "products.download": "今すぐ無料ダウンロード",
+        "products.considering": "現在開発を検討中です！",
+        
+        "antimalware.description": "あらゆる種類のデジタル脅威から包括的な保護を提供するプレミアムAnti-malwareソリューションをご紹介します。わずか¥1000+で、デバイスの生涯保護を手に入れましょう。",
+        "antimalware.price": "¥1000+ / 一回払い",
+        "antimalware.feature1.title": "高度な脅威検出",
+        "antimalware.feature1.description": "最先端の技術により、マルウェア、ランサムウェア、スパイウェアなどの脅威を、システムに害を与える前に特定して排除します。",
+        "antimalware.feature2.title": "ウェブ保護",
+        "antimalware.feature2.description": "悪意のあるウェブサイト、フィッシング攻撃、危険なダウンロードからリアルタイムで保護し、安全にブラウジングできます。",
+        "antimalware.feature3.title": "プライバシーシールド",
+        "antimalware.feature3.description": "キーロガー、個人情報窃盗、その他のプライバシー侵害から個人情報を保護します。",
+        "antimalware.considering": "現在開発を検討中です！",
+        
+        "anticheat.title": "AntiCheatの機能",
+        "anticheat.description": "無料のMinecraft Bedrock用AntiCheatには、サーバーをチーターやハッカーから保護するための強力な機能が満載です。",
+        "anticheat.feature1.title": "チート検出",
+        "anticheat.feature1.description": "スピードハック、フライハックなど、様々なチートを検出して防止する高度なアルゴリズム。",
+        "anticheat.feature2.title": "軽量設計",
+        "anticheat.feature2.description": "最適化されたコードにより、最大限の保護を維持しながらサーバーパフォーマンスへの影響を最小限に抑えます。",
+        "anticheat.feature3.title": "カスタマイズ可能",
+        "anticheat.feature3.description": "サーバーの特定のニーズに合わせて、検出しきい値や処罰アクションを簡単に設定できます。",
+        "anticheat.feature4.title": "リアルタイム監視",
+        "anticheat.feature4.description": "プレイヤーの活動をリアルタイムで監視し、不審な行動の即時通知を受け取ります。",
+        "anticheat.feature6.title": "コミュニティ主導",
+        "anticheat.feature6.description": "実際のチート問題に対処するため、Minecraftコミュニティからの意見を取り入れて開発されています。",
+        "anticheat.download": "AntiCheatをダウンロード",
+        
+        "about.title": "NovaDefenderについて",
+        "about.paragraph1": "NovaDefenderは、セキュリティソリューションの作成を愛する一人の開発者によるパッションプロジェクトです。Minecraft Bedrock用のAntiCheatは完全に無料でコミュニティに公開されており、プレミアムのAnti-malwareソリューションは継続的な開発資金の助けとなっています。",
+        "about.paragraph2": "このプロジェクトは、オンラインでのセキュリティ脅威の増加に気づいたときに始まりました。私はプログラミングスキルを使って、ゲーマー向けの無料オプションと、完全な保護のための手頃な価格のプレミアムオプションを備えた、誰もがアクセスできるソリューションを作ることを決意しました。",
+        "about.paragraph3": "NovaDefenderは常に進化し、新しい脅威に対抗するために定期的にアップデートされています。あなたのフィードバック、サポート、寄付がこのプロジェクトを存続させ、改善し続ける原動力となっています！",
+        "about.support": "プロジェクトを支援する",
+        
+        "donate.title": "NovaDefenderを支援する",
+        "donate.paragraph1": "AntiCheatは完全に無料で、Anti-malwareは手頃な価格ですが、ソフトウェアの維持と改善には時間とリソースが必要です。あなたの寄付はプロジェクトを存続させ、継続的な改善とアップデートを可能にします。",
+        "donate.paragraph2": "NovaDefenderを支援することで、開発者を助けるだけでなく、誰もがより安全なデジタル世界の実現に貢献しています！",
+        "donate.custom": "カスタム",
+        "donate.customDescription": "プロジェクトに貢献する金額を自由に選択できます。",
+        "donate.customButton": "カスタム寄付（開発中）",
+        
+        "footer.description": "すべての人のための高度なセキュリティソリューション。Minecraft用の無料AntiCheatとプレミアムAnti-malware保護。",
+        "footer.products": "製品",
+        "footer.downloadAntiCheat": "AntiCheatをダウンロード",
+        "footer.purchaseAntimalware": "Anti-malwareを購入",
+        "footer.resources": "リソース",
+        "footer.documentation": "ドキュメント",
+        "footer.installation": "インストールガイド",
+        "footer.faq": "よくある質問",
+        "footer.troubleshooting": "トラブルシューティング",
+        "footer.reportIssues": "問題を報告",
+        "footer.contact": "お問い合わせ",
+        "footer.discord": "Discordに参加",
+        "footer.github": "GitHubリポジトリ",
+        "footer.copyright": "© 2025 NovaSecurity. All rights reserved. NovaSecurityはMojangやMicrosoftと提携していません。"
+      }
+    };
+
+    // Function to update content based on selected language
+    function updateContent(lang) {
+      document.documentElement.lang = lang;
+      
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          if (key.includes('title') && translations[lang][key].includes('<span')) {
+            element.innerHTML = translations[lang][key];
+          } else {
+            element.innerHTML = translations[lang][key];
+          }
+        }
+      });
+      
+      // Update language buttons
+      document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+      document.getElementById('ja-btn').classList.toggle('active', lang === 'ja');
+      
+      // Save language preference
+      localStorage.setItem('preferredLanguage', lang);
+    }
+    
+    // Initialize language switcher
+    document.addEventListener('DOMContentLoaded', function() {
+      // Language switcher event listeners
+      document.getElementById('en-btn').addEventListener('click', function() {
+        updateContent('en');
+      });
+      
+      document.getElementById('ja-btn').addEventListener('click', function() {
+        updateContent('ja');
+      });
+      
+      // Check for saved language preference
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+      updateContent(savedLanguage);
+    });
+
     // Mobile Menu Toggle
     const mobileMenu = document.getElementById('mobileMenu');
     const navLinks = document.getElementById('navLinks');

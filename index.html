@@ -1,1559 +1,706 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaDefender - Advanced Security Solutions</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #6c63ff;
-      --secondary: #4a45b1;
-      --dark: #1a1a2e;
-      --light: #f8f9fa;
-      --accent: #ff6584;
-      --success: #28a745;
-      --warning: #ffc107;
-      --info: #17a2b8;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--light);
-      color: var(--dark);
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header Styles */
-    header {
-      background-color: var(--dark);
-      color: white;
-      padding: 20px 0;
-      position: fixed;
-      width: 100%;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      padding: 10px 0;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo span {
-      color: var(--primary);
-    }
-
-    .logo-icon {
-      margin-right: 10px;
-      font-size: 2rem;
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-    }
-
-    .nav-links li {
-      margin-left: 30px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-      position: relative;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 0;
-      background-color: var(--primary);
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .mobile-menu {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    /* Language Switcher */
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      margin-left: 20px;
-    }
-
-    .language-btn {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 0.9rem;
-      padding: 5px 10px;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
-
-    .language-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .language-btn.active {
-      background-color: var(--primary);
-      font-weight: bold;
-    }
-
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, var(--dark) 0%, #2a2a4a 100%);
-      color: white;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      padding-top: 80px;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-      animation: fadeInUp 1s ease;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
-      line-height: 1.6;
-      animation: fadeInUp 1s ease 0.2s forwards;
-      opacity: 0;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 30px;
-      background-color: var(--primary);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      animation: fadeInUp 1s ease 0.4s forwards;
-      opacity: 0;
-    }
-
-    .btn:hover {
-      background-color: var(--secondary);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-outline {
-      background-color: transparent;
-      border: 2px solid var(--primary);
-      margin-left: 15px;
-    }
-
-    .btn-outline:hover {
-      background-color: var(--primary);
-    }
-
-    .btn-success {
-      background-color: var(--success);
-    }
-
-    .btn-success:hover {
-      background-color: #218838;
-    }
-
-    .btn-warning {
-      background-color: var(--warning);
-      color: var(--dark);
-    }
-
-    .btn-warning:hover {
-      background-color: #e0a800;
-    }
-
-    .btn-info {
-      background-color: var(--info);
-    }
-
-    .btn-info:hover {
-      background-color: #138496;
-    }
-
-    .hero-image {
-      position: absolute;
-      right: -100px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50%;
-      animation: floatImage 6s ease-in-out infinite, fadeIn 1s ease;
-    }
-
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      display: block;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      animation: moveParticle 15s linear infinite;
-    }
-
-    /* Products Section */
-    .products {
-      padding: 100px 0;
-      background-color: white;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-title h2::after {
-      content: '';
-      position: absolute;
-      width: 80px;
-      height: 3px;
-      background-color: var(--primary);
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .section-title p {
-      color: #666;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .products-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .product-card {
-      background-color: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      width: 100%;
-      max-width: 350px;
-      transition: all 0.3s ease;
-      position: relative;
-      margin-bottom: 40px;
-    }
-
-    .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .product-header {
-      padding: 30px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-header.free {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    }
-
-    .product-header.premium {
-      background: linear-gradient(135deg, #f5a623 0%, #f27121 100%);
-    }
-
-    .product-header.web {
-      background: linear-gradient(135deg, var(--info) 0%, #0056b3 100%);
-    }
-
-    .product-badge {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: white;
-      color: var(--dark);
-      padding: 5px 15px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-header h3 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-
-    .product-header p {
-      opacity: 0.9;
-      margin-bottom: 0;
-    }
-
-    .product-price {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 20px 0;
-    }
-
-    .product-price span {
-      font-size: 1rem;
-      opacity: 0.8;
-      font-weight: 400;
-    }
-
-    .product-content {
-      padding: 30px;
-    }
-
-    .product-features {
-      list-style: none;
-      margin-bottom: 30px;
-    }
-
-    .product-features li {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      display: flex;
-      align-items: center;
-    }
-
-    .product-features li:last-child {
-      border-bottom: none;
-    }
-
-    .product-features i {
-      color: var(--success);
-      margin-right: 10px;
-    }
-
-    .product-features i.disabled {
-      color: #ccc;
-    }
-
-    /* Features Section */
-    .features {
-      padding: 100px 0;
-      background-color: #f9f9f9;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-
-    .feature-card {
-      background-color: white;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background-color: var(--primary);
-      transition: all 0.3s ease;
-      z-index: -1;
-    }
-
-    .feature-card:hover::before {
-      width: 100%;
-      opacity: 0.05;
-    }
-
-    .feature-icon {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-    }
-
-    .feature-card p {
-      color: #666;
-      line-height: 1.6;
-    }
-
-    /* Anti-malware Section */
-    .antimalware {
-      padding: 100px 0;
-      background-color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .antimalware-content {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 50px;
-    }
-
-    .antimalware-image {
-      flex: 1;
-      min-width: 300px;
-      position: relative;
-    }
-
-    .antimalware-image img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .antimalware-text {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .antimalware-text h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .antimalware-text h2::after {
-      content: '';
-      position: absolute;
-      width: 80px;
-      height: 3px;
-      background-color: var(--warning);
-      bottom: -10px;
-      left: 0;
-    }
-
-    .antimalware-text p {
-      color: #666;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .antimalware-features {
-      margin: 30px 0;
-    }
-
-    .antimalware-feature {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
-
-    .antimalware-feature-icon {
-      background-color: rgba(255, 193, 7, 0.1);
-      color: var(--warning);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin-right: 20px;
-      flex-shrink: 0;
-    }
-
-    .antimalware-feature-text h4 {
-      font-size: 1.2rem;
-      margin-bottom: 5px;
-    }
-
-    .antimalware-feature-text p {
-      margin-bottom: 0;
-      font-size: 0.95rem;
-    }
-
-    .price-tag {
-      display: inline-block;
-      background-color: var(--warning);
-      color: var(--dark);
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin: 20px 0;
-    }
-
-    /* About Section */
-    .about {
-      padding: 100px 0;
-      background-color: #f9f9f9;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-content {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .about-text {
-      flex: 1;
-      min-width: 300px;
-      padding-right: 50px;
-    }
-
-    .about-text h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .about-text h2::after {
-      content: '';
-      position: absolute;
-      width: 80px;
-      height: 3px;
-      background-color: var(--primary);
-      bottom: -10px;
-      left: 0;
-    }
-
-    .about-text p {
-      color: #666;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .about-image {
-      flex: 1;
-      min-width: 300px;
-      position: relative;
-    }
-
-    .about-image img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .about-badge {
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      background-color: var(--accent);
-      color: white;
-      padding: 15px;
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      text-align: center;
-      font-size: 1.1rem;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      animation: pulse 2s infinite;
-    }
-
-    /* Donation Section */
-    .donation {
-      padding: 100px 0;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      text-align: center;
-    }
-
-    .donation h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .donation p {
-      max-width: 700px;
-      margin: 0 auto 30px;
-      line-height: 1.8;
-    }
-
-    .donation-options {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    .donation-card {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 30px;
-      width: 250px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .donation-card:hover {
-      transform: translateY(-10px);
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .donation-amount {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .donation-card p {
-      margin-bottom: 20px;
-      font-size: 0.9rem;
-    }
-
-    .btn-white {
-      background-color: white;
-      color: var(--primary);
-    }
-
-    .btn-white:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    /* Footer */
-    footer {
-      background-color: var(--dark);
-      color: white;
-      padding: 60px 0 20px;
-    }
-
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-
-    .footer-column h3 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .footer-column h3::after {
-      content: '';
-      position: absolute;
-      width: 40px;
-      height: 2px;
-      background-color: var(--primary);
-      bottom: -10px;
-      left: 0;
-    }
-
-    .footer-column ul {
-      list-style: none;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 10px;
-    }
-
-    .footer-column ul li a {
-      color: #aaa;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-column ul li a:hover {
-      color: var(--primary);
-    }
-
-    .social-links {
-      display: flex;
-      gap: 15px;
-    }
-
-    .social-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      color: white;
-      transition: all 0.3s ease;
-    }
-
-    .social-links a:hover {
-      background-color: var(--primary);
-      transform: translateY(-3px);
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes floatImage {
-
-      0%,
-      100% {
-        transform: translateY(-50%) translateX(0);
-      }
-
-      50% {
-        transform: translateY(-50%) translateX(-20px);
-      }
-    }
-
-    @keyframes moveParticle {
-      0% {
-        transform: translateY(0) translateX(0);
-      }
-
-      100% {
-        transform: translateY(-1000px) translateX(1000px);
-      }
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 101, 132, 0.7);
-      }
-
-      70% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 10px rgba(255, 101, 132, 0);
-      }
-
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 101, 132, 0);
-      }
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 992px) {
-      .hero h1 {
-        font-size: 2.8rem;
-      }
-
-      .hero-image {
-        width: 45%;
-        right: -50px;
-      }
-
-      .about-text {
-        padding-right: 0;
-        margin-bottom: 50px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background-color: var(--dark);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.5s ease;
-      }
-
-      .nav-links.active {
-        left: 0;
-      }
-
-      .nav-links li {
-        margin: 20px 0;
-      }
-
-      .mobile-menu {
-        display: block;
-      }
-
-      .hero {
-        text-align: center;
-        padding-top: 50px;
-      }
-
-      .hero-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      .hero-image {
-        position: relative;
-        width: 80%;
-        right: auto;
-        top: auto;
-        transform: none;
-        margin-top: 50px;
-      }
-
-      .about-content {
-        flex-direction: column;
-      }
-
-      .about-text,
-      .about-image {
-        width: 100%;
-      }
-
-      .antimalware-content {
-        flex-direction: column-reverse;
-      }
-      
-      .language-switcher {
-        margin: 20px 0;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .btn {
-        display: block;
-        width: 100%;
-        margin-bottom: 15px;
-      }
-
-      .btn-outline {
-        margin-left: 0;
-      }
-
-      .donation-card {
-        width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaDefender - マインクラフト用アンチチート</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #7e57c2;
+            --secondary-color: #5e35b1;
+            --accent-color: #b39ddb;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #fff;
+            --header-bg: #7e57c2;
+            --header-text: #fff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #9575cd;
+            --secondary-color: #7e57c2;
+            --accent-color: #b39ddb;
+            --text-color: #f5f5f5;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: #5e35b1;
+            --header-text: #fff;
+            --border-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--header-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: #4caf50;
+        }
+
+        .btn-primary:hover {
+            background-color: #388e3c;
+        }
+
+        .btn-secondary {
+            background-color: #f44336;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d32f2f;
+        }
+
+        section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .changelog {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .changelog-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .changelog-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .changelog-version {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .changelog-date {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+
+        .changelog-changes {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        .developer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .developer img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--primary-color);
+        }
+
+        .developer h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .developer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .footer-links a {
+            color: var(--header-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-label {
+            font-size: 0.9rem;
+            color: var(--header-text);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .toggle-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Language specific styles */
+        [lang="en"] .ja-content {
+            display: none;
+        }
+
+        [lang="ja"] .en-content {
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
-  <!-- Header -->
-  <header id="header">
-    <div class="container">
-      <nav>
-        <div class="logo">
-          <i class="fas fa-shield-alt logo-icon"></i>
-          Nova<span>Defender</span>
-        </div>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home" data-i18n="nav.home">Home</a></li>
-          <li><a href="#products" data-i18n="nav.products">Products</a></li>
-          <li><a href="#antimalware">Anti-malware</a></li>
-          <li><a href="#anticheat">AntiCheat</a></li>
-          <li><a href="#about" data-i18n="nav.about">About</a></li>
-          <li><a href="#donate" data-i18n="nav.donate">Donate</a></li>
-          <li class="language-switcher">
-            <button id="en-btn" class="language-btn active">EN</button>
-            <span style="color: white; margin: 0 5px;">|</span>
-            <button id="ja-btn" class="language-btn">JP</button>
-          </li>
-        </ul>
-        <div class="mobile-menu" id="mobileMenu">
-          <i class="fas fa-bars"></i>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="particles" id="particles"></div>
-    <div class="container">
-      <div class="hero-content">
-        <h1 data-i18n="hero.title">Advanced Security Solutions by <span style="color: var(--primary);">NovaDefender</span></h1>
-        <p data-i18n="hero.description">Protecting your digital world with cutting-edge security software. From our free Minecraft Bedrock AntiCheat
-          to our premium Anti-malware solution, NovaDefender is committed to keeping you safe online.</p>
-        <div>
-          <a href="#products" class="btn" data-i18n="hero.explore">Explore Our Products</a>
-          <a href="#about" class="btn btn-outline" data-i18n="hero.learn">Learn More</a>
-        </div>
-      </div>
-    </div>
-<!--     <img src="https://i.imgur.com/JYzqCpx.png" alt="NovaDefender Shield" class="hero-image"> -->
-  </section>
-
-  <!-- Products Section -->
-  <section class="products" id="products">
-    <div class="container">
-      <div class="section-title">
-        <h2 data-i18n="products.title">Our Products</h2>
-        <p data-i18n="products.description">NovaDefender offers powerful security solutions for different needs. Choose the product that's right for you.
-        </p>
-      </div>
-      <div class="products-container">
-        <div class="product-card">
-          <div class="product-header free">
-            <h3>NovaDefender AntiCheat</h3>
-            <p data-i18n="products.minecraft">For Minecraft Bedrock Edition</p>
-          </div>
-          <div class="product-content">
-            <ul class="product-features">
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature1">Advanced cheat detection</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature2">Real-time monitoring</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature3">Customizable settings</span></li>
-              <li><i class="fas fa-check-circle"></i> <span data-i18n="products.feature4">Community support</span></li>
-            </ul>
-            <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" class="btn" data-i18n="products.download">Download</a>
-          </div>
-        </div>
-    </div>
-  </section>
-
-  <!-- Anti-malware Section -->
-<!--   <section class="antimalware" id="antimalware">
-    <div class="container">
-      <div class="antimalware-content">
-<!--         <div class="antimalware-image">
-          <img src="https://i.imgur.com/nTZKG7j.png" alt="NovaDefender Anti-malware">
-        </div> -->
-<!--         <div class="antimalware-text">
-          <h2>NovaDefender Anti-malware</h2>
-          <p data-i18n="antimalware.description">Introducing our premium Anti-malware solution designed to provide comprehensive protection against all
-            types of digital threats. For just ¥1000+, get lifetime protection for your devices.</p>
-          <div class="price-tag" data-i18n="antimalware.price">¥1000+ / one time payment</div>
-          <div class="antimalware-features">
-            <div class="antimalware-feature">
-              <div class="antimalware-feature-icon">
-                <i class="fas fa-virus-slash"></i>
-              </div>
-              <div class="antimalware-feature-text">
-                <h4 data-i18n="antimalware.feature1.title">Advanced Threat Detection</h4>
-                <p data-i18n="antimalware.feature1.description">Our cutting-edge technology identifies and eliminates malware, ransomware, spyware, and other threats
-                  before they can harm your system.</p>
-              </div>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="ja-content">NovaDefender</span>
+                    <span class="en-content">NovaDefender</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features" class="ja-content">機能</a><a href="#features" class="en-content">Features</a></li>
+                        <li><a href="#download" class="ja-content">ダウンロード</a><a href="#download" class="en-content">Download</a></li>
+                        <li><a href="#changelog" class="ja-content">更新履歴</a><a href="#changelog" class="en-content">Changelog</a></li>
+                        <li><a href="#developer" class="ja-content">開発者</a><a href="#developer" class="en-content">Developer</a></li>
+                        <li><a href="#donate" class="ja-content">寄付</a><a href="#donate" class="en-content">Donate</a></li>
+                    </ul>
+                </nav>
+                <div class="toggle-container">
+                    <span class="toggle-label ja-content">日本語</span>
+                    <span class="toggle-label en-content">English</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="language-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    
+                    <span class="toggle-label ja-content">ダークモード</span>
+                    <span class="toggle-label en-content">Dark Mode</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
-            <div class="antimalware-feature">
-              <div class="antimalware-feature-icon">
-                <i class="fas fa-globe"></i>
-              </div>
-              <div class="antimalware-feature-text">
-                <h4 data-i18n="antimalware.feature2.title">Web Protection</h4>
-                <p data-i18n="antimalware.feature2.description">Browse safely with real-time protection against malicious websites, phishing attempts, and dangerous
-                  downloads.</p>
-              </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="ja-content">NovaDefender</h1>
+            <h1 class="en-content">NovaDefender</h1>
+            <p class="ja-content">マインクラフト用の高性能アンチチート</p>
+            <p class="en-content">Advanced Anti-Cheat for Minecraft</p>
+            <a href="#download" class="btn btn-primary ja-content">ダウンロード</a>
+            <a href="#download" class="btn btn-primary en-content">Download</a>
+            <a href="#features" class="btn ja-content">機能を見る</a>
+            <a href="#features" class="btn en-content">View Features</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title ja-content">機能一覧</h2>
+            <h2 class="section-title en-content">Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-magic"></i>
+                    <h3 class="ja-content">オーバーエンチャント検知</h3>
+                    <h3 class="en-content">Over-Enchantment Detection</h3>
+                    <p class="ja-content">不正なエンチャントレベルを持つアイテムを自動的に検出します。</p>
+                    <p class="en-content">Automatically detects items with illegal enchantment levels.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-fist-raised"></i>
+                    <h3 class="ja-content">KillAura検知</h3>
+                    <h3 class="en-content">KillAura Detection</h3>
+                    <p class="ja-content">不自然な攻撃パターンを検出し、KillAuraなどのチートを防止します。</p>
+                    <p class="en-content">Detects unnatural attack patterns to prevent KillAura and similar cheats.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3 class="ja-content">TPS測定</h3>
+                    <h3 class="en-content">TPS Measurement</h3>
+                    <p class="ja-content">サーバーのTPS（Ticks Per Second）をリアルタイムで測定し表示します。</p>
+                    <p class="en-content">Measures and displays server TPS (Ticks Per Second) in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3 class="ja-content">ユーザーデータ表示</h3>
+                    <h3 class="en-content">User Data Display</h3>
+                    <p class="ja-content">プレイヤーの詳細情報を簡単に確認できます。</p>
+                    <p class="en-content">Easily check detailed information about players.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-box-open"></i>
+                    <h3 class="ja-content">インベントリ閲覧</h3>
+                    <h3 class="en-content">Inventory Viewing</h3>
+                    <p class="ja-content">管理者がプレイヤーのインベントリをリアルタイムで確認できます。</p>
+                    <p class="en-content">Administrators can check player inventories in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3 class="ja-content">権限設定</h3>
+                    <h3 class="en-content">Permission Settings</h3>
+                    <p class="ja-content">詳細な権限システムで、誰が何を使えるかを細かく設定できます。</p>
+                    <p class="en-content">Detailed permission system allows fine control over who can use what.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-ban"></i>
+                    <h3 class="ja-content">禁止アイテム</h3>
+                    <h3 class="en-content">Banned Items</h3>
+                    <p class="ja-content">特定のアイテムの使用や所持を禁止できます。</p>
+                    <p class="en-content">Ban the use or possession of specific items.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-dragon"></i>
+                    <h3 class="ja-content">禁止エンティティ</h3>
+                    <h3 class="en-content">Banned Entities</h3>
+                    <p class="ja-content">特定のエンティティのスポーンや使用を制限できます。</p>
+                    <p class="en-content">Restrict the spawning or use of specific entities.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-list"></i>
+                    <h3 class="ja-content">エンティティリスト閲覧</h3>
+                    <h3 class="en-content">Entity List Viewing</h3>
+                    <p class="ja-content">ワールド内のすべてのエンティティを一覧表示します。</p>
+                    <p class="en-content">List all entities in the world.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <h3 class="ja-content">アイテムキル</h3>
+                    <h3 class="en-content">Item Kill</h3>
+                    <p class="ja-content">ドロップしているアイテムを一括で削除できます。</p>
+                    <p class="en-content">Remove all dropped items at once.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3 class="ja-content">その他多数の機能</h3>
+                    <h3 class="en-content">Many More Features</h3>
+                    <p class="ja-content">常に新機能を追加しています。GitHubで最新の更新をチェックしてください。</p>
+                    <p class="en-content">We're constantly adding new features. Check GitHub for the latest updates.</p>
+                </div>
             </div>
-            <div class="antimalware-feature">
-              <div class="antimalware-feature-icon">
-                <i class="fas fa-lock"></i>
-              </div>
-              <div class="antimalware-feature-text">
-                <h4 data-i18n="antimalware.feature3.title">Privacy Shield</h4>
-                <p data-i18n="antimalware.feature3.description">Protect your personal information from keyloggers, identity thieves, and other privacy invaders.</p>
-              </div>
+        </div>
+    </section>
+
+    <section id="download">
+        <div class="container">
+            <h2 class="section-title ja-content">ダウンロード</h2>
+            <h2 class="section-title en-content">Download</h2>
+            <div class="feature-card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <i class="fas fa-download" style="font-size: 3rem;"></i>
+                <h3 class="ja-content">NovaDefender</h3>
+                <h3 class="en-content">NovaDefender</h3>
+                <p class="ja-content">最新バージョンをGitHubからダウンロードしてください。</p>
+                <p class="en-content">Download the latest version from GitHub.</p>
+                <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" target="_blank" class="btn btn-primary ja-content">GitHubでダウンロード</a>
+                <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" target="_blank" class="btn btn-primary en-content">Download on GitHub</a>
             </div>
-          </div>
-          <a class="btn btn-warning" data-i18n="antimalware.considering">We are currently considering development!</a>
         </div>
-      </div>
-    </div>
-  </section> -->
+    </section>
 
-  <!-- Features Section -->
-  <section class="features" id="anticheat">
-    <div class="container">
-      <div class="section-title">
-        <h2 data-i18n="anticheat.title">AntiCheat Features</h2>
-        <p data-i18n="anticheat.description">Our free Minecraft Bedrock AntiCheat comes packed with powerful features to protect your servers from
-          cheaters and hackers.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-eye-slash"></i>
-          </div>
-          <h3 data-i18n="anticheat.feature1.title">Cheat Detection</h3>
-          <p data-i18n="anticheat.feature1.description">Advanced algorithms to detect and prevent various cheats including speed hacks, fly hacks, and more.</p>
+    <section id="changelog">
+        <div class="container">
+            <h2 class="section-title ja-content">更新履歴</h2>
+            <h2 class="section-title en-content">Changelog</h2>
+            <div class="changelog">
+                <div class="changelog-item">
+                    <div class="changelog-version ja-content">v1.2.0-beta</div>
+                    <div class="changelog-version en-content">v1.2.0-beta</div>
+                    <div class="changelog-date ja-content">2023年12月15日</div>
+                    <div class="changelog-date en-content">December 15, 2023</div>
+                    <ul class="changelog-changes ja-content">
+                        <li>Minecraft v1.21.8xに対応しました。</li>
+                        <li>公式サイトを更新しました。</li>
+                    </ul>
+                    <ul class="changelog-changes en-content">
+                        <li>Added support for Minecraft v1.21.8x.</li>
+                        <li>Updated the official website.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-bolt"></i>
-          </div>
-          <h3 data-i18n="anticheat.feature2.title">Lightweight</h3>
-          <p data-i18n="anticheat.feature2.description">Optimized code ensures minimal impact on server performance while maintaining maximum protection.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-cogs"></i>
-          </div>
-          <h3 data-i18n="anticheat.feature3.title">Customizable</h3>
-          <p data-i18n="anticheat.feature3.description">Easily configure detection thresholds and punishment actions to suit your server's specific needs.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3 data-i18n="anticheat.feature4.title">Real-time Monitoring</h3>
-          <p data-i18n="anticheat.feature4.description">Monitor player activities in real-time and receive instant notifications of suspicious behavior.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-users"></i>
-          </div>
-          <h3 data-i18n="anticheat.feature6.title">Community Driven</h3>
-          <p data-i18n="anticheat.feature6.description">Developed with input from the Minecraft community to address real-world cheating issues.</p>
-        </div>
-      </div>
-      <div style="text-align: center; margin-top: 40px;">
-        <a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" class="btn btn-success" data-i18n="anticheat.download">Download AntiCheat</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About Section -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about-content">
-        <div class="about-text">
-          <h2 data-i18n="about.title">About NovaDefender</h2>
-          <p data-i18n="about.paragraph1">NovaDefender is a passion project developed by a single developer who loves creating security solutions.
-            Our AntiCheat for Minecraft Bedrock is completely free and open to the community, while our premium
-            Anti-malware solution helps fund continued development.</p>
-          <p data-i18n="about.paragraph2">The project started when I noticed the increasing number of security threats online. I decided to use my
-            programming skills to create solutions that would be accessible to everyone, with a free option for gamers
-            and an affordable premium option for complete protection.</p>
-          <p data-i18n="about.paragraph3">NovaDefender is constantly evolving, with regular updates to combat new threats. Your feedback, support,
-            and donations are what keep this project alive and improving!</p>
-          <a href="#donate" class="btn" data-i18n="about.support">Support the Project</a>
+    <section id="developer">
+        <div class="container">
+            <h2 class="section-title ja-content">開発者</h2>
+            <h2 class="section-title en-content">Developer</h2>
+            <div class="developer">
+                <img src="https://images-ext-1.discordapp.net/external/s9Rbnz1oozH30Hg6KWsIDbfG_YLdmmpN8VC-KBkghAA/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1283677825475547198/55a6cbc4c212f907d1cb522cf7303810.png?format=webp&quality=lossless&width=184&height=184" alt="Developer">
+                <h3>Creeper Developer</h3>
+                <p class="ja-content">マインクラフト用アドオンの開発者。NovaDefenderの作者。</p>
+                <p class="en-content">Developer of Minecraft addons. Creator of NovaDefender.</p>
+                <div class="social-links">
+                    <a href="https://github.com/creeperdeveloper" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
         </div>
-        <!-- <div class="about-image">
-          <img src="dounyuu.png" alt="NovaDefender Developer">
-          <div class="about-badge">Indie Dev</div>
-        </div> -->
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Donation Section -->
-  <section class="donation" id="donate">
-    <div class="container">
-      <h2 data-i18n="donate.title">Support NovaDefender</h2>
-      <p data-i18n="donate.paragraph1">While our AntiCheat is completely free and our Anti-malware is affordably priced, maintaining and improving the
-        software requires time and resources. Your donations help keep the project alive and allow for continuous
-        improvements and updates.</p>
-      <p data-i18n="donate.paragraph2">By supporting NovaDefender, you're not just helping a single developer – you're contributing to a safer digital
-        world for everyone!</p>
-      <div class="donation-options">
-<!--         <div class="donation-card">
-          <div class="donation-amount">$5</div>
-          <p>Every little bit helps! This covers server costs for about a week.</p>
-          <a href="#" class="btn btn-white">Donate $5</a>
+    <section id="donate">
+        <div class="container">
+            <h2 class="section-title ja-content">寄付</h2>
+            <h2 class="section-title en-content">Donate</h2>
+            <div class="feature-card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <i class="fas fa-heart" style="font-size: 3rem; color: #f44336;"></i>
+                <h3 class="ja-content">開発をサポートする</h3>
+                <h3 class="en-content">Support the Development</h3>
+                <p class="ja-content">NovaDefenderは無料で提供されていますが、寄付によって開発を支援することができます。</p>
+                <p class="en-content">NovaDefender is provided for free, but you can support its development through donations.</p>
+                <p class="ja-content">寄付機能は現在準備中です。もうしばらくお待ちください。</p>
+                <p class="en-content">Donation feature is coming soon. Please check back later.</p>
+                <a href="#" class="btn btn-secondary ja-content" disabled>準備中</a>
+                <a href="#" class="btn btn-secondary en-content" disabled>Coming Soon</a>
+            </div>
         </div>
-        <div class="donation-card">
-          <div class="donation-amount">$15</div>
-          <p>Helps with monthly server costs and development time.</p>
-          <a href="#" class="btn btn-white">Donate $15</a>
-        </div>
-        <div class="donation-card">
-          <div class="donation-amount">$30</div>
-          <p>Significant contribution that helps fund new features!</p>
-          <a href="#" class="btn btn-white">Donate $30</a>
-        </div> -->
-        <div class="donation-card">
-          <div class="donation-amount" data-i18n="donate.custom">Custom</div>
-          <p data-i18n="donate.customDescription">Choose your own amount to contribute to the project.</p>
-          <a href="#" class="btn btn-white" data-i18n="donate.customButton">Custom Donation (under development)</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>NovaDefender</h3>
-          <p data-i18n="footer.description">Advanced security solutions for everyone. Free AntiCheat for Minecraft and premium Anti-malware protection.
-          </p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-discord"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-          </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="ja-content">NovaDefender</span>
+                    <span class="en-content">NovaDefender</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#features" class="ja-content">機能</a>
+                    <a href="#features" class="en-content">Features</a>
+                    <a href="#download" class="ja-content">ダウンロード</a>
+                    <a href="#download" class="en-content">Download</a>
+                    <a href="#changelog" class="ja-content">更新履歴</a>
+                    <a href="#changelog" class="en-content">Changelog</a>
+                    <a href="#developer" class="ja-content">開発者</a>
+                    <a href="#developer" class="en-content">Developer</a>
+                    <a href="#donate" class="ja-content">寄付</a>
+                    <a href="#donate" class="en-content">Donate</a>
+                </div>
+                <p class="ja-content">&copy; 2023 NovaDefender. All Rights Reserved.</p>
+                <p class="en-content">&copy; 2023 NovaDefender. All Rights Reserved.</p>
+            </div>
         </div>
-        <div class="footer-column">
-          <h3 data-i18n="footer.products">Products</h3>
-          <ul>
-            <li><a href="#anticheat">AntiCheat</a></li>
-            <li><a href="#antimalware">Anti-malware</a></li>
-            <li><a href="#products">WebProtector</a></li>
-            <li><a href="https://github.com/creeperdeveloper/NovaDefender-AntiCheat" data-i18n="footer.downloadAntiCheat">Download AntiCheat</a></li>
-            <li><a href="#" data-i18n="footer.purchaseAntimalware">Purchase Anti-malware</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3 data-i18n="footer.resources">Resources</h3>
-          <ul>
-            <li><a href="#" data-i18n="footer.documentation">Documentation</a></li>
-            <li><a href="#" data-i18n="footer.installation">Installation Guide</a></li>
-            <li><a href="#" data-i18n="footer.faq">FAQ</a></li>
-            <li><a href="#" data-i18n="footer.troubleshooting">Troubleshooting</a></li>
-            <li><a href="#" data-i18n="footer.reportIssues">Report Issues</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3 data-i18n="footer.contact">Contact</h3>
-          <ul>
-            <li><a href="mailto:support@novadefender.com">support@novadefender.com</a></li>
-            <li><a href="#" data-i18n="footer.discord">Join our Discord</a></li>
-            <li><a href="#" data-i18n="footer.github">GitHub Repository</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="copyright">
-        <p data-i18n="footer.copyright">&copy; 2025 NovaSecurity. All rights reserved. NovaSecurity is not affiliated with Mojang or Microsoft.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- JavaScript -->
-  <script>
-    // Language translations
-    const translations = {
-      en: {
-        "nav.home": "Home",
-        "nav.products": "Products",
-        "nav.about": "About",
-        "nav.donate": "Donate",
-        
-        "hero.title": "Advanced Security Solutions by <span style='color: var(--primary);'>NovaDefender</span>",
-        "hero.description": "Protecting your digital world with cutting-edge security software. From our free Minecraft Bedrock AntiCheat to our premium Anti-malware solution, NovaDefender is committed to keeping you safe online.",
-        "hero.explore": "Explore Our Products",
-        "hero.learn": "Learn More",
-        
-        "products.title": "Our Products",
-        "products.description": "NovaDefender offers powerful security solutions for different needs. Choose the product that's right for you.",
-        "products.free": "FREE",
-        "products.premium": "PREMIUM",
-        "products.minecraft": "For Minecraft Bedrock Edition",
-        "products.protection": "Complete protection for your devices",
-        "products.webprotection": "Safe browsing for everyone",
-        "products.forever": "/ forever",
-        "products.onetime": "/ one time payment",
-        "products.feature1": "Advanced cheat detection",
-        "products.feature2": "Real-time monitoring",
-        "products.feature3": "Customizable settings",
-        "products.feature4": "Community support",
-        "products.feature5": "Real-time threat detection",
-        "products.feature6": "Ransomware protection",
-        "products.feature7": "Web protection",
-        "products.feature8": "Email security",
-        "products.feature9": "Automatic updates",
-        "products.feature10": "Premium support",
-        "products.webfeature1": "NSFW site blocking",
-        "products.webfeature2": "Scam site protection",
-        "products.webfeature3": "Dangerous site alerts",
-        "products.webfeature4": "Customizable filters",
-        "products.webfeature5": "Browser integration",
-        "products.download": "Free Download Now",
-        "products.considering": "We are currently considering development!",
-        
-        "antimalware.description": "Introducing our premium Anti-malware solution designed to provide comprehensive protection against all types of digital threats. For just ¥1000+, get lifetime protection for your devices.",
-        "antimalware.price": "¥1000+ / one time payment",
-        "antimalware.feature1.title": "Advanced Threat Detection",
-        "antimalware.feature1.description": "Our cutting-edge technology identifies and eliminates malware, ransomware, spyware, and other threats before they can harm your system.",
-        "antimalware.feature2.title": "Web Protection",
-        "antimalware.feature2.description": "Browse safely with real-time protection against malicious websites, phishing attempts, and dangerous downloads.",
-        "antimalware.feature3.title": "Privacy Shield",
-        "antimalware.feature3.description": "Protect your personal information from keyloggers, identity thieves, and other privacy invaders.",
-        "antimalware.considering": "We are currently considering development!",
-        
-        "anticheat.title": "AntiCheat Features",
-        "anticheat.description": "Our free Minecraft Bedrock AntiCheat comes packed with powerful features to protect your servers from cheaters and hackers.",
-        "anticheat.feature1.title": "Cheat Detection",
-        "anticheat.feature1.description": "Advanced algorithms to detect and prevent various cheats including speed hacks, fly hacks, and more.",
-        "anticheat.feature2.title": "Lightweight",
-        "anticheat.feature2.description": "Optimized code ensures minimal impact on server performance while maintaining maximum protection.",
-        "anticheat.feature3.title": "Customizable",
-        "anticheat.feature3.description": "Easily configure detection thresholds and punishment actions to suit your server's specific needs.",
-        "anticheat.feature4.title": "Real-time Monitoring",
-        "anticheat.feature4.description": "Monitor player activities in real-time and receive instant notifications of suspicious behavior.",
-        "anticheat.feature6.title": "Community Driven",
-        "anticheat.feature6.description": "Developed with input from the Minecraft community to address real-world cheating issues.",
-        "anticheat.download": "Download AntiCheat",
-        
-        "about.title": "About NovaDefender",
-        "about.paragraph1": "NovaDefender is a passion project developed by a single developer who loves creating security solutions. Our AntiCheat for Minecraft Bedrock is completely free and open to the community, while our premium Anti-malware solution helps fund continued development.",
-        "about.paragraph2": "The project started when I noticed the increasing number of security threats online. I decided to use my programming skills to create solutions that would be accessible to everyone, with a free option for gamers and an affordable premium option for complete protection.",
-        "about.paragraph3": "NovaDefender is constantly evolving, with regular updates to combat new threats. Your feedback, support, and donations are what keep this project alive and improving!",
-        "about.support": "Support the Project",
-        
-        "donate.title": "Support NovaDefender",
-        "donate.paragraph1": "While our AntiCheat is completely free and our Anti-malware is affordably priced, maintaining and improving the software requires time and resources. Your donations help keep the project alive and allow for continuous improvements and updates.",
-        "donate.paragraph2": "By supporting NovaDefender, you're not just helping a single developer – you're contributing to a safer digital world for everyone!",
-        "donate.custom": "Custom",
-        "donate.customDescription": "Choose your own amount to contribute to the project.",
-        "donate.customButton": "Custom Donation (under development)",
-        
-        "footer.description": "Advanced security solutions for everyone. Free AntiCheat for Minecraft and premium Anti-malware protection.",
-        "footer.products": "Products",
-        "footer.downloadAntiCheat": "Download AntiCheat",
-        "footer.purchaseAntimalware": "Purchase Anti-malware",
-        "footer.resources": "Resources",
-        "footer.documentation": "Documentation",
-        "footer.installation": "Installation Guide",
-        "footer.faq": "FAQ",
-        "footer.troubleshooting": "Troubleshooting",
-        "footer.reportIssues": "Report Issues",
-        "footer.contact": "Contact",
-        "footer.discord": "Join our Discord",
-        "footer.github": "GitHub Repository",
-        "footer.copyright": "© 2025 NovaSecurity. All rights reserved. NovaSecurity is not affiliated with Mojang or Microsoft."
-      },
-      ja: {
-        "nav.home": "ホーム",
-        "nav.products": "ソフトウェア",
-        "nav.about": "概要",
-        "nav.donate": "寄付",
-        
-        "hero.title": "<span style='color: var(--primary);'>NovaDefender</span>による高度なセキュリティソリューション",
-        "hero.description": "最先端のセキュリティソフトウェアでデジタル世界を保護します。無料のMinecraft Bedrock用AntiCheatから、プレミアムのAnti-malwareソリューションまで、NovaDefenderはオンラインでの安全を確保することに取り組んでいます。",
-        "hero.explore": "ソフトウェア、プログラムを探索する",
-        "hero.learn": "詳細を見る",
-        
-        "products.title": "製品一覧",
-        "products.description": "NovaDefenderは様々なニーズに対応する強力なセキュリティソリューションを提供しています。あなたに最適なソフトウェアをお選びください。",
-        "products.free": "無料",
-        "products.premium": "プレミアム",
-        "products.minecraft": "Minecraft Bedrock Edition向け",
-        "products.protection": "デバイスの完全な保護",
-        "products.webprotection": "誰でも安全にブラウジング",
-        "products.forever": "/ 永久",
-        "products.onetime": "/ 一回払い",
-        "products.feature1": "高度なチート検出",
-        "products.feature2": "リアルタイム監視",
-        "products.feature3": "カスタマイズ可能な設定",
-        "products.feature4": "コミュニティサポート",
-        "products.feature5": "リアルタイム脅威検出",
-        "products.feature6": "ランサムウェア保護",
-        "products.feature7": "ウェブ保護",
-        "products.feature8": "メールセキュリティ",
-        "products.feature9": "自動アップデート",
-        "products.feature10": "プレミアムサポート",
-        "products.webfeature1": "NSFWサイトブロック",
-        "products.webfeature2": "詐欺サイト保護",
-        "products.webfeature3": "危険なサイトの警告",
-        "products.webfeature4": "カスタマイズ可能なフィルター",
-        "products.webfeature5": "ブラウザ統合",
-        "products.download": "今すぐ無料ダウンロード",
-        "products.considering": "現在開発を検討中です！",
-        
-        "antimalware.description": "あらゆる種類のデジタル脅威から包括的な保護を提供するプレミアムAnti-malwareソリューションをご紹介します。わずか¥1000+で、デバイスの生涯保護を手に入れましょう。",
-        "antimalware.price": "¥1000+ / 一回払い",
-        "antimalware.feature1.title": "高度な脅威検出",
-        "antimalware.feature1.description": "最先端の技術により、マルウェア、ランサムウェア、スパイウェアなどの脅威を、システムに害を与える前に特定して排除します。",
-        "antimalware.feature2.title": "ウェブ保護",
-        "antimalware.feature2.description": "悪意のあるウェブサイト、フィッシング攻撃、危険なダウンロードからリアルタイムで保護し、安全にブラウジングできます。",
-        "antimalware.feature3.title": "プライバシーシールド",
-        "antimalware.feature3.description": "キーロガー、個人情報窃盗、その他のプライバシー侵害から個人情報を保護します。",
-        "antimalware.considering": "現在開発を検討中です！",
-        
-        "anticheat.title": "AntiCheatの機能",
-        "anticheat.description": "無料のMinecraft Bedrock用AntiCheatには、サーバーをチーターやハッカーから保護するための強力な機能が満載です。",
-        "anticheat.feature1.title": "チート検出",
-        "anticheat.feature1.description": "スピードハック、フライハックなど、様々なチートを検出して防止する高度なアルゴリズム。",
-        "anticheat.feature2.title": "軽量設計",
-        "anticheat.feature2.description": "最適化されたコードにより、最大限の保護を維持しながらサーバーパフォーマンスへの影響を最小限に抑えます。",
-        "anticheat.feature3.title": "カスタマイズ可能",
-        "anticheat.feature3.description": "サーバーの特定のニーズに合わせて、検出しきい値や処罰アクションを簡単に設定できます。",
-        "anticheat.feature4.title": "リアルタイム監視",
-        "anticheat.feature4.description": "プレイヤーの活動をリアルタイムで監視し、不審な行動の即時通知を受け取ります。",
-        "anticheat.feature6.title": "コミュニティ主導",
-        "anticheat.feature6.description": "実際のチート問題に対処するため、Minecraftコミュニティからの意見を取り入れて開発されています。",
-        "anticheat.download": "AntiCheatをダウンロード",
-        
-        "about.title": "NovaDefenderについて",
-        "about.paragraph1": "NovaDefenderは、セキュリティソリューションの作成を愛する一人の開発者によるパッションプロジェクトです。Minecraft Bedrock用のAntiCheatは完全に無料でコミュニティに公開されており、プレミアムのAnti-malwareソリューションは継続的な開発資金の助けとなっています。",
-        "about.paragraph2": "このプロジェクトは、オンラインでのセキュリティ脅威の増加に気づいたときに始まりました。私はプログラミングスキルを使って、ゲーマー向けの無料オプションと、完全な保護のための手頃な価格のプレミアムオプションを備えた、誰もがアクセスできるソリューションを作ることを決意しました。",
-        "about.paragraph3": "NovaDefenderは常に進化し、新しい脅威に対抗するために定期的にアップデートされています。あなたのフィードバック、サポート、寄付がこのプロジェクトを存続させ、改善し続ける原動力となっています！",
-        "about.support": "プロジェクトを支援する",
-        
-        "donate.title": "NovaDefenderを支援する",
-        "donate.paragraph1": "AntiCheatは完全に無料で、Anti-malwareは手頃な価格ですが、ソフトウェアの維持と改善には時間とリソースが必要です。あなたの寄付はプロジェクトを存続させ、継続的な改善とアップデートを可能にします。",
-        "donate.paragraph2": "NovaDefenderを支援することで、開発者を助けるだけでなく、誰もがより安全なデジタル世界の実現に貢献しています！",
-        "donate.custom": "カスタム",
-        "donate.customDescription": "プロジェクトに貢献する金額を自由に選択できます。",
-        "donate.customButton": "カスタム寄付（開発中）",
-        
-        "footer.description": "すべての人のための高度なセキュリティソリューション。Minecraft用の無料AntiCheatとプレミアムAnti-malware保護。",
-        "footer.products": "製品",
-        "footer.downloadAntiCheat": "AntiCheatをダウンロード",
-        "footer.purchaseAntimalware": "Anti-malwareを購入",
-        "footer.resources": "リソース",
-        "footer.documentation": "ドキュメント",
-        "footer.installation": "インストールガイド",
-        "footer.faq": "よくある質問",
-        "footer.troubleshooting": "トラブルシューティング",
-        "footer.reportIssues": "問題を報告",
-        "footer.contact": "お問い合わせ",
-        "footer.discord": "Discordに参加",
-        "footer.github": "GitHubリポジトリ",
-        "footer.copyright": "© 2025 NovaSecurity. All rights reserved. NovaSecurityはMojangやMicrosoftと提携していません。"
-      }
-    };
+    <script>
+        // Language toggle
+        const languageToggle = document.getElementById('language-toggle');
+        const htmlElement = document.documentElement;
 
-    // Function to update content based on selected language
-    function updateContent(lang) {
-      document.documentElement.lang = lang;
-      
-      const elements = document.querySelectorAll('[data-i18n]');
-      elements.forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          if (key.includes('title') && translations[lang][key].includes('<span')) {
-            element.innerHTML = translations[lang][key];
-          } else {
-            element.innerHTML = translations[lang][key];
-          }
+        // Initialize language based on browser settings
+        const userLanguage = navigator.language || navigator.userLanguage;
+        const isEnglish = userLanguage.startsWith('en');
+        
+        // Set initial language
+        htmlElement.setAttribute('lang', isEnglish ? 'en' : 'ja');
+        languageToggle.checked = isEnglish;
+
+        // Language toggle event listener
+        languageToggle.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.setAttribute('lang', 'en');
+            } else {
+                htmlElement.setAttribute('lang', 'ja');
+            }
+        });
+
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
         }
-      });
-      
-      // Update language buttons
-      document.getElementById('en-btn').classList.toggle('active', lang === 'en');
-      document.getElementById('ja-btn').classList.toggle('active', lang === 'ja');
-      
-      // Save language preference
-      localStorage.setItem('preferredLanguage', lang);
-    }
-    
-    // Initialize language switcher
-    document.addEventListener('DOMContentLoaded', function() {
-      // Language switcher event listeners
-      document.getElementById('en-btn').addEventListener('click', function() {
-        updateContent('en');
-      });
-      
-      document.getElementById('ja-btn').addEventListener('click', function() {
-        updateContent('ja');
-      });
-      
-      // Check for saved language preference
-      const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
-      updateContent(savedLanguage);
-    });
 
-    // Mobile Menu Toggle
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navLinks = document.getElementById('navLinks');
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
-    mobileMenu.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      mobileMenu.innerHTML = navLinks.classList.contains('active') ?
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-
-    // Smooth Scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-
-          // Close mobile menu if open
-          if (navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
-          }
-        }
-      });
-    });
-
-    // Header Scroll Effect
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    // Particles Animation
-    const particles = document.getElementById('particles');
-    const particleCount = 20;
-
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('span');
-      particle.className = 'particle';
-
-      // Random size
-      const size = Math.random() * 15 + 5;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-
-      // Random position
-      const posX = Math.random() * 100;
-      const posY = Math.random() * 100;
-      particle.style.left = `${posX}%`;
-      particle.style.top = `${posY}%`;
-
-      // Random animation duration
-      const duration = Math.random() * 10 + 10;
-      particle.style.animationDuration = `${duration}s`;
-
-      // Random delay
-      const delay = Math.random() * 5;
-      particle.style.animationDelay = `${delay}s`;
-
-      particles.appendChild(particle);
-    }
-
-    // Animate elements when they come into view
-    const animateOnScroll = () => {
-      const elements = document.querySelectorAll('.feature-card, .section-title, .about-text, .about-image, .donation-card, .product-card, .antimalware-feature');
-
-      elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.2;
-
-        if (elementPosition < screenPosition) {
-          element.style.opacity = '1';
-          element.style.transform = 'translateY(0)';
-        }
-      });
-    };
-
-    // Set initial styles for animation
-    document.querySelectorAll('.feature-card, .section-title, .about-text, .about-image, .donation-card, .product-card, .antimalware-feature').forEach(element => {
-      element.style.opacity = '0';
-      element.style.transform = 'translateY(20px)';
-      element.style.transition = 'all 0.6s ease';
-    });
-
-    window.addEventListener('scroll', animateOnScroll);
-    window.addEventListener('load', animateOnScroll);
-  </script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
